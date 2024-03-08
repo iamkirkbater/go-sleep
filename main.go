@@ -29,8 +29,8 @@ func echo_usage() {
 	os.Stderr.WriteString(USAGE)
 }
 
-func parse_args(args []string) (time.Duration, error) {
-	allOtherArgs := os.Args[1:]
+func parseArgs(args []string) (time.Duration, error) {
+	allOtherArgs := args[1:]
 
 	if len(allOtherArgs) == 0 {
 		return (0 * time.Second), ERR_TOO_FEW_ARGS
@@ -46,11 +46,11 @@ func parse_args(args []string) (time.Duration, error) {
 		return (time.Duration(i) * time.Second), nil
 	}
 
-	return time.ParseDuration(allOtherArgs[0])
+	return time.ParseDuration(arg)
 }
 
 func main() {
-	sleepTime, err := parse_args(os.Args)
+	sleepTime, err := parseArgs(os.Args)
 	if err != nil {
 		os.Stderr.WriteString(err.Error())
 		echo_usage()
